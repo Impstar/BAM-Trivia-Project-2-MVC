@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.489
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAMTriviaProject2MVC", "BAMTriviaProject2MVC\BAMTriviaProject2MVC.csproj", "{E0D05088-CB8C-4CF4-B53B-9E224E7A9A45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BAMTriviaProject2MVC", "BAMTriviaProject2MVC\BAMTriviaProject2MVC.csproj", "{E0D05088-CB8C-4CF4-B53B-9E224E7A9A45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BAMTriviaProject2MVC.Testing", "BAMTriviaProject2MVC.Testing\BAMTriviaProject2MVC.Testing.csproj", "{7667FF75-8B71-40C6-B9B8-648CF818C3A4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{E0D05088-CB8C-4CF4-B53B-9E224E7A9A45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0D05088-CB8C-4CF4-B53B-9E224E7A9A45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0D05088-CB8C-4CF4-B53B-9E224E7A9A45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7667FF75-8B71-40C6-B9B8-648CF818C3A4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7667FF75-8B71-40C6-B9B8-648CF818C3A4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7667FF75-8B71-40C6-B9B8-648CF818C3A4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7667FF75-8B71-40C6-B9B8-648CF818C3A4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
