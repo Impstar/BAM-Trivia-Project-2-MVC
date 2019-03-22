@@ -1,14 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
+using BAMTriviaProject2MVC.ApiModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace BAMTriviaProject2MVC.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : AServiceController
     {
+
+        public UsersController(HttpClient httpClient, IConfiguration configuration)
+            : base(httpClient, configuration)
+        { }
+
         // GET: Users
         public ActionResult Register()
         {
@@ -18,13 +28,30 @@ namespace BAMTriviaProject2MVC.Controllers
         public ActionResult Login(ViewModels.UsersViewModel viewModel)
         {
 
-            return View();
+            return View(viewModel);
         }
 
         // GET: Users/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(int id)
         {
-            return View();
+            var request = CreateRequestToService(HttpMethod.Get, $"/api/Users/{id}");
+            var response = await HttpClient.SendAsync(request);
+
+            //if (!response.IsSuccessStatusCode)
+            //{
+            //    if (response.StatusCode == HttpStatusCode.Unauthorized)
+            //    {
+            //        return RedirectToAction("Login", "Account");
+            //    }
+            //    return View("Error");
+            //}
+
+            var jsonString = await response.Content.ReadAsStringAsync();
+
+            var users = JsonConvert.DeserializeObject<ApiUsers>(jsonString);
+
+            return View(users);
+
         }
 
         // GET: Users/Create
