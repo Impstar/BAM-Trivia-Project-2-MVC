@@ -1,18 +1,43 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
+using BAMTriviaProject2MVC.ApiModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace BAMTriviaProject2MVC.Controllers
 {
-    public class QuizzesController : Controller
+    public class QuizzesController : AServiceController
     {
+        public QuizzesController(HttpClient httpClient, IConfiguration configuration)
+    : base(httpClient, configuration)
+        { }
+
         // GET: Quizzes
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var request = CreateRequestToService(HttpMethod.Get, $"/api/Quizzes");
+            var response = await HttpClient.SendAsync(request);
+
+            //if (!response.IsSuccessStatusCode)
+            //{
+            //    if (response.StatusCode == HttpStatusCode.Unauthorized)
+            //    {
+            //        return RedirectToAction("Login", "Account");
+            //    }
+            //    return View("Error");
+            //}
+
+            var jsonString = await response.Content.ReadAsStringAsync();
+
+            var quizzes = JsonConvert.DeserializeObject<ApiQuizzes>(jsonString);
+
+            return View(quizzes);
+            //return View();
         }
 
         // GET: Quizes/Details/5
