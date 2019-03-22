@@ -7,9 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BAMTriviaProject2MVC.Controllers
 {
-    public class QuizesController : Controller
+    public class QuizzesController : Controller
     {
-        // GET: Quizes
+        // GET: Quizzes
         public ActionResult Index()
         {
             return View();
