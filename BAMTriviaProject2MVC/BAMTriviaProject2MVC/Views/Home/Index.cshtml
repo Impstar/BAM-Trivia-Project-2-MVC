@@ -1,8 +1,42 @@
-﻿@{
+﻿@model BAMTriviaProject2MVC.ViewModels.UsersViewModel
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h2 class="display-4" style="font-size: 3.1rem;">Welcome to BAM Trivia</h2>
 </div>
+<hr />
+
+<div>
+    <h3>Login</h3>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-controller="Users" asp-action="Login">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Username" class="control-label"></label>
+                <input asp-for="Username" class="form-control" />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PW" class="control-label"></label>
+                <input asp-for="PW" class="form-control" />
+                <span asp-validation-for="PW" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+<hr />
+
+<div>
+    <h3>Register User (click link below)</h3>
+    <a asp-controller="Users" asp-action="Register">Register</a>
+</div>
+
