@@ -1,8 +1,24 @@
 ﻿@model BAMTriviaProject2MVC.ViewModels.QuizzesViewModel
 
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
+<h1>Quiz Home</h1>
+<div>
+    <form asp-action="Create" method="get">
+        <input type="submit" value="Take Quiz!" class="btn btn-primary btn-lg" />
+    </form>
+</div>
+<br /><br /> <!--TODO: Remember to replace with margin spacing CSS-->
+<div>
+    <form asp-action="Find" method="get">
+        <input type="submit" value="Find Quiz!" class="btn btn-primary btn-lg" />
+    </form>
+</div>
+<br /><br /> <!--TODO: Remember to replace with margin spacing CSS-->
+<div>
+    <form asp-action="Details" method="get">
+        <input type="submit" value="View last results!" class="btn btn-primary btn-lg" />
+    </form>
+</div>

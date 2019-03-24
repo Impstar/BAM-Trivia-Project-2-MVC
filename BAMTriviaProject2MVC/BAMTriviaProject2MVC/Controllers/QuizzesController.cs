@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using BAMTriviaProject2MVC.ApiModels;
+using BAMTriviaProject2MVC.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -47,9 +48,25 @@ namespace BAMTriviaProject2MVC.Controllers
         }
 
         // GET: Quizes/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            return View();
+            var request = CreateRequestToService(HttpMethod.Get, $"/api/Quizzes/Create");
+            var response = await HttpClient.SendAsync(request);
+
+            var jsonString = await response.Content.ReadAsStringAsync();
+
+            var quizzes = JsonConvert.DeserializeObject<QuizzesViewModel>(jsonString);
+
+            //QuizzesViewModel quizzes = new QuizzesViewModel();
+
+            //quizzes.Categories = new List<string>()
+            //{
+            //    "QC",
+            //    "Beer",
+            //    "Movies"
+            //};
+
+            return View(quizzes);
         }
 
         // POST: Quizes/Create
@@ -68,6 +85,12 @@ namespace BAMTriviaProject2MVC.Controllers
                 return View();
             }
         }
+        
+        //[HttpGet]
+        //public async Task<ActionResult> TakeQuiz()
+        //{
+
+        //}
 
         // GET: Quizes/Edit/5
         public ActionResult Edit(int id)
