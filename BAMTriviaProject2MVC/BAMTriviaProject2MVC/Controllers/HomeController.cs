@@ -72,7 +72,7 @@ namespace BAMTriviaProject2MVC.Controllers
             }
 
             // login success
-            return RedirectToAction("Login", "Users");
+            return RedirectToAction("Index", "Quizzes");
         }
 
         // POST: /Account/Logout
@@ -151,7 +151,7 @@ namespace BAMTriviaProject2MVC.Controllers
             }
 
             // login success
-            return RedirectToAction("Login", "Users");
+            return RedirectToAction("Index", "Quizzes");
         }
 
         private bool PassCookiesToClient(HttpResponseMessage apiResponse)
