@@ -18,7 +18,7 @@ namespace BAMTriviaProject2MVC.ViewModels
         [Display(Name = "Username")]
         public string Username { get; set; }
 
-        public long CreditCardNumber { get; set; }
+        public long? CreditCardNumber { get; set; }
         public int PointTotal { get; set; }
         public bool AccountType { get; set; }
 

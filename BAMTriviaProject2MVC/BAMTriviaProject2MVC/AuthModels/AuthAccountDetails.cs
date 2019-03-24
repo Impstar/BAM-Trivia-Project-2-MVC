@@ -8,6 +8,7 @@ namespace BAMTriviaProject2MVC.AuthModels
     public class AuthAccountDetails
     {
         public string Username { get; set; }
+        public bool AccountType { get; set; }
         public IEnumerable<string> Roles { get; set; }
     }
 }
