@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BAMTriviaProject2MVC.ApiModels
+namespace BAMTriviaProject2MVC.BLLModels
 {
-    public class ApiUsers
+    public class BLLUsers
     {
         public int UserId { get; set; }
         public string FirstName { get; set; }

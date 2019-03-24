@@ -1,4 +1,4 @@
-﻿@model BAMTriviaProject2MVC.ViewModels.UsersViewModel
+﻿@model BAMTriviaProject2MVC.AuthModels.AuthLogin
 
 @{
     ViewData["Title"] = "Home Page";
@@ -15,7 +15,7 @@
 
 <div class="row">
     <div class="col-md-4">
-        <form asp-controller="Users" asp-action="Login">
+        <form asp-controller="Home" asp-action="Login">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Username" class="control-label"></label>
@@ -23,9 +23,9 @@
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PW" class="control-label"></label>
-                <input asp-for="PW" class="form-control" />
-                <span asp-validation-for="PW" class="text-danger"></span>
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Login" class="btn btn-primary" />
@@ -37,6 +37,6 @@
 
 <div>
     <h3>Register User (click link below)</h3>
-    <a asp-controller="Users" asp-action="Register">Register</a>
+    <a asp-controller="Home" asp-action="Register">Register</a>
 </div>
 
