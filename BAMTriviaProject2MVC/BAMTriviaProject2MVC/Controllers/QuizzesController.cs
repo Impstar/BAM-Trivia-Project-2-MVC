@@ -50,21 +50,7 @@ namespace BAMTriviaProject2MVC.Controllers
         // GET: Quizes/Create
         public async Task<ActionResult> Create()
         {
-            var request = CreateRequestToService(HttpMethod.Get, $"/api/Quizzes/Create");
-            var response = await HttpClient.SendAsync(request);
-
-            var jsonString = await response.Content.ReadAsStringAsync();
-
-            var quizzes = JsonConvert.DeserializeObject<QuizzesViewModel>(jsonString);
-
-            //QuizzesViewModel quizzes = new QuizzesViewModel();
-
-            //quizzes.Categories = new List<string>()
-            //{
-            //    "QC",
-            //    "Beer",
-            //    "Movies"
-            //};
+            QuizzesViewModel quizzes = new QuizzesViewModel();
 
             return View(quizzes);
         }
