@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using BAMTriviaProject2MVC.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,9 +35,11 @@ namespace BAMTriviaProject2MVC
 
             services.AddSingleton<HttpClient>();
 
+            services.AddScoped<GetAccountDetailsFilter>();
+
             services.AddMvc(options =>
             {
-                //options.Filters.Add(typeof(GetAccountDetailsFilter));
+                options.Filters.Add(typeof(GetAccountDetailsFilter));
             })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -61,9 +64,10 @@ namespace BAMTriviaProject2MVC
 
             app.UseMvc(routes =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+            routes.MapRoute(
+                name: "Default",
+                template: "{controller=Home}/{action=Login}/{id?}");
+
             });
         }
     }

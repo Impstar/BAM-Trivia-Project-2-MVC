@@ -1,14 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace BAMTriviaProject2MVC.Controllers
 {
-    public class QuizzesController : Controller
+    public class QuizzesController : AServiceController
     {
+        public QuizzesController(HttpClient httpClient, IConfiguration configuration)
+            : base(httpClient, configuration)
+        { }
+
         // GET: Quizzes
         public ActionResult Index()
         {
