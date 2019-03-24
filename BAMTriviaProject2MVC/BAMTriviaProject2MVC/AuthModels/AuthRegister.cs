@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,6 +9,16 @@ namespace BAMTriviaProject2MVC.AuthModels
 {
     public class AuthRegister
     {
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
         [Required]
         [DataType(DataType.Text)]
         [Display(Name = "Username")]
@@ -22,7 +33,15 @@ namespace BAMTriviaProject2MVC.AuthModels
 
         [Compare(nameof(Password))]
         [DataType(DataType.Password)]
+        [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
 
+        [Required]
+        [Display(Name = "Credit Card Number")]
+        public long? CreditCardNumber { get; set; }
+
+        [BindNever]
+        [Display(Name = "Account Type")]
+        public bool AccountType { get; set; } = false;
     }
 }

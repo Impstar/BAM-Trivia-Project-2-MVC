@@ -38,6 +38,12 @@
                         <span class="navbar-text mr-sm-2 text-light">
                             @account.Username
                         </span>
+                        @if (account.AccountType)
+                        {
+                        <span class="navbar-text mr-sm-2" style="color:red;">
+                            Admin
+                        </span>
+                        }
                         <button class="btn btn-outline-info text-light" type="submit">Logout</button>
                     </form>
                     }
