@@ -86,14 +86,14 @@ namespace BAMTriviaProject2MVC.Controllers
             return View("TakeQuiz", model);
         }
 
-        [HttpPost]
-        public async Task<ActionResult> TakeQuiz(QuizzesViewModel model)
-        {
+        //[HttpPost]
+        //public async Task<ActionResult> TakeQuiz(QuizzesViewModel model)
+        //{
 
 
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
 
         // GET: Quizes/Edit/5
         public ActionResult Edit(int id)
