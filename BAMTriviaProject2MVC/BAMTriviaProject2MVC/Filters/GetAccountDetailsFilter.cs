@@ -2,6 +2,7 @@
 using BAMTriviaProject2MVC.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,12 @@ namespace BAMTriviaProject2MVC.Filters
     public class GetAccountDetailsFilter : IAsyncActionFilter
     {
         private readonly IConfiguration _configuration;
+        private readonly ILogger<UsersController> _logger;
 
-        public GetAccountDetailsFilter(IConfiguration configuration)
+        public GetAccountDetailsFilter(IConfiguration configuration, ILogger<UsersController> logger)
         {
             _configuration = configuration;
+            _logger = logger;
         }
 
         public async Task OnActionExecutionAsync(
@@ -29,24 +32,34 @@ namespace BAMTriviaProject2MVC.Filters
             // fetch the details, otherwise, do nothing.
             if (context.Controller is AServiceController controller)
             {
-                HttpRequestMessage request = controller.CreateRequestToService(
+                try
+                {
+                    HttpRequestMessage request = controller.CreateRequestToService(
                     HttpMethod.Get, "api/Users/Details");
 
-                HttpResponseMessage response = await controller.HttpClient.SendAsync(request);
+                    HttpResponseMessage response = await controller.HttpClient.SendAsync(request);
 
-                if (!response.IsSuccessStatusCode)
-                {
-                    // setting "Result" in a filter short-circuits the rest
-                    // of the MVC pipeline
-                    // but i won't do that, i should just log it.
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        // setting "Result" in a filter short-circuits the rest
+                        // of the MVC pipeline
+                        // but i won't do that, i should just log it.
+                    }
+                    else
+                    {
+                        var jsonString = await response.Content.ReadAsStringAsync();
+                        AuthAccountDetails details = JsonConvert.DeserializeObject<AuthAccountDetails>(jsonString);
+                        controller.ViewData["accountDetails"] = details;
+                        controller.Account = details;
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    var jsonString = await response.Content.ReadAsStringAsync();
-                    AuthAccountDetails details = JsonConvert.DeserializeObject<AuthAccountDetails>(jsonString);
-                    controller.ViewData["accountDetails"] = details;
-                    controller.Account = details;
+                    _logger.LogError(ex.ToString());
+                    
                 }
+                
+                
             }
 
             await next();
