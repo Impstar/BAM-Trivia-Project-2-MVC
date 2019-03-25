@@ -1,4 +1,8 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var account = ViewData["accountDetails"] as BAMTriviaProject2MVC.AuthModels.AuthAccountDetails;
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -28,9 +32,24 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    @if (account != null)
+                    {
+                    <form class="form-inline" asp-controller="Home" asp-action="Logout">
+                        <span class="navbar-text mr-sm-2 text-light">
+                            @account.Username
+                        </span>
+                        @if (account.AccountType)
+                        {
+                        <span class="navbar-text mr-sm-2" style="color:red;">
+                            Admin
+                        </span>
+                        }
+                        <button class="btn btn-outline-info text-light" type="submit">Logout</button>
+                    </form>
+                    }
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Login">Home</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
