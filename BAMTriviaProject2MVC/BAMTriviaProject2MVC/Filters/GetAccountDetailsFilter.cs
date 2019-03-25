@@ -32,34 +32,24 @@ namespace BAMTriviaProject2MVC.Filters
             // fetch the details, otherwise, do nothing.
             if (context.Controller is AServiceController controller)
             {
-                try
-                {
-                    HttpRequestMessage request = controller.CreateRequestToService(
-                    HttpMethod.Get, "api/Users/Details");
+                HttpRequestMessage request = controller.CreateRequestToService(
+                HttpMethod.Get, "api/Users/Details");
 
-                    HttpResponseMessage response = await controller.HttpClient.SendAsync(request);
+                HttpResponseMessage response = await controller.HttpClient.SendAsync(request);
 
-                    if (!response.IsSuccessStatusCode)
-                    {
-                        // setting "Result" in a filter short-circuits the rest
-                        // of the MVC pipeline
-                        // but i won't do that, i should just log it.
-                    }
-                    else
-                    {
-                        var jsonString = await response.Content.ReadAsStringAsync();
-                        AuthAccountDetails details = JsonConvert.DeserializeObject<AuthAccountDetails>(jsonString);
-                        controller.ViewData["accountDetails"] = details;
-                        controller.Account = details;
-                    }
-                }
-                catch (Exception ex)
+                if (!response.IsSuccessStatusCode)
                 {
-                    _logger.LogError(ex.ToString());
-                    
+                    // setting "Result" in a filter short-circuits the rest
+                    // of the MVC pipeline
+                    // but i won't do that, i should just log it.
                 }
-                
-                
+                else
+                {
+                    var jsonString = await response.Content.ReadAsStringAsync();
+                    AuthAccountDetails details = JsonConvert.DeserializeObject<AuthAccountDetails>(jsonString);
+                    controller.ViewData["accountDetails"] = details;
+                    controller.Account = details;
+                }
             }
 
             await next();
