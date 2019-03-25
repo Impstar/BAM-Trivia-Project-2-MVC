@@ -35,11 +35,11 @@ namespace BAMTriviaProject2MVC
 
             services.AddSingleton<HttpClient>();
 
-            //services.AddScoped<GetAccountDetailsFilter>();
+            services.AddScoped<GetAccountDetailsFilter>();
 
             services.AddMvc(options =>
             {
-                //options.Filters.Add(typeof(GetAccountDetailsFilter));
+                options.Filters.Add(typeof(GetAccountDetailsFilter));
             })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
