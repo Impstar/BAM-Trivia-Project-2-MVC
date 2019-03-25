@@ -7,5 +7,6 @@ namespace BAMTriviaProject2MVC.ViewModels
 {
     public class QuestionsViewModel
     {
+
     }
 }

@@ -58,25 +58,42 @@ namespace BAMTriviaProject2MVC.Controllers
         // POST: Quizes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(QuizzesViewModel model)
         {
             try
             {
-                // TODO: Add insert logic here
+                var request = CreateRequestToService(HttpMethod.Post, $"/api/Quizzes/Create", model);
+                var response = await HttpClient.SendAsync(request);
 
-                return RedirectToAction(nameof(Index));
+
+
+                return RedirectToAction("TakeQuiz", model);
             }
             catch
             {
                 return View();
             }
         }
-        
-        //[HttpGet]
-        //public async Task<ActionResult> TakeQuiz()
-        //{
 
-        //}
+        [HttpGet]
+        public async Task<ActionResult> TakeQuiz(QuizzesViewModel model)
+        {
+            var request = CreateRequestToService(HttpMethod.Post, $"/api/Quizzes/Create", model);
+            var response = await HttpClient.SendAsync(request);
+
+
+
+            return View("TakeQuiz", model);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> TakeQuiz(QuizzesViewModel model)
+        {
+
+
+
+            return View(model);
+        }
 
         // GET: Quizes/Edit/5
         public ActionResult Edit(int id)
