@@ -3,22 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using BAMTriviaProject2MVC.ApiModels;
+using BAMTriviaProject2MVC.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace BAMTriviaProject2MVC.Controllers
 {
     public class QuizzesController : AServiceController
     {
         public QuizzesController(HttpClient httpClient, IConfiguration configuration)
-            : base(httpClient, configuration)
+    : base(httpClient, configuration)
         { }
 
         // GET: Quizzes
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var request = CreateRequestToService(HttpMethod.Get, $"/api/Quizzes");
+            var response = await HttpClient.SendAsync(request);
+
+            //if (!response.IsSuccessStatusCode)
+            //{
+            //    if (response.StatusCode == HttpStatusCode.Unauthorized)
+            //    {
+            //        return RedirectToAction("Login", "Account");
+            //    }
+            //    return View("Error");
+            //}
+
+            var jsonString = await response.Content.ReadAsStringAsync();
+
+            var quizzes = JsonConvert.DeserializeObject<ApiQuizzes>(jsonString);
+
+            return View(quizzes);
+            //return View();
         }
 
         // GET: Quizes/Details/5
@@ -28,27 +48,52 @@ namespace BAMTriviaProject2MVC.Controllers
         }
 
         // GET: Quizes/Create
-        public ActionResult Create()
+        public async Task<ActionResult> Create()
         {
-            return View();
+            QuizzesViewModel quizzes = new QuizzesViewModel();
+
+            return View(quizzes);
         }
 
         // POST: Quizes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public async Task<ActionResult> Create(QuizzesViewModel model)
         {
             try
             {
-                // TODO: Add insert logic here
+                var request = CreateRequestToService(HttpMethod.Post, $"/api/Quizzes/Create", model);
+                var response = await HttpClient.SendAsync(request);
 
-                return RedirectToAction(nameof(Index));
+
+
+                return RedirectToAction("TakeQuiz", model);
             }
             catch
             {
                 return View();
             }
         }
+
+        [HttpGet]
+        public async Task<ActionResult> TakeQuiz(QuizzesViewModel model)
+        {
+            var request = CreateRequestToService(HttpMethod.Post, $"/api/Quizzes/Create", model);
+            var response = await HttpClient.SendAsync(request);
+
+
+
+            return View("TakeQuiz", model);
+        }
+
+        //[HttpPost]
+        //public async Task<ActionResult> TakeQuiz(QuizzesViewModel model)
+        //{
+
+
+
+        //    return View(model);
+        //}
 
         // GET: Quizes/Edit/5
         public ActionResult Edit(int id)

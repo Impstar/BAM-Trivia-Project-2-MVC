@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BAMTriviaProject2MVC.ViewModels
+namespace BAMTriviaProject2MVC.ApiModels
 {
-    public class QuizzesViewModel
+    public class ApiQuizzes
     {
         public int Id { get; set; }
         public int MaxScore { get; set; }
@@ -18,14 +18,5 @@ namespace BAMTriviaProject2MVC.ViewModels
             "Beer",
             "Movies"
         };
-
-        public Dictionary<int, string> Difficulties = new Dictionary<int, string>()
-        {
-            {1, "Easy" },
-            {2, "Medium" },
-            {3, "Hard" }
-        };
-
-
     }
 }
