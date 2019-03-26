@@ -9,14 +9,18 @@ using System.Net.Http;
 using Microsoft.Extensions.Configuration;
 using System.Net;
 using BAMTriviaProject2MVC.AuthModels;
+using Microsoft.Extensions.Logging;
 
 namespace BAMTriviaProject2MVC.Controllers
 {
     public class HomeController : AServiceController
     {
-        public HomeController(HttpClient httpClient, IConfiguration configuration)
+        public HomeController(HttpClient httpClient, IConfiguration configuration,
+            ILogger<UsersController> logger)
             : base(httpClient, configuration)
-        { }
+        { _logger = logger; }
+
+        private readonly ILogger<UsersController> _logger;
 
         public ActionResult Login()
         {

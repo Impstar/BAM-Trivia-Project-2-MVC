@@ -21,6 +21,28 @@ namespace BAMTriviaProject2MVC.Controllers
         // GET: Quizzes
         public async Task<ActionResult> Index()
         {
+            //var request = CreateRequestToService(HttpMethod.Get, $"/api/Quizzes");
+            //var response = await HttpClient.SendAsync(request);
+
+            //if (!response.IsSuccessStatusCode)
+            //{
+            //    if (response.StatusCode == HttpStatusCode.Unauthorized)
+            //    {
+            //        return RedirectToAction("Login", "Account");
+            //    }
+            //    return View("Error");
+            //}
+
+            //var jsonString = await response.Content.ReadAsStringAsync();
+
+            //var quizzes = JsonConvert.DeserializeObject<ApiQuizzes>(jsonString);
+
+            return View();
+            //return View();
+        }
+
+        public async Task<ActionResult> Get()
+        {
             var request = CreateRequestToService(HttpMethod.Get, $"/api/Quizzes");
             var response = await HttpClient.SendAsync(request);
 
@@ -35,10 +57,9 @@ namespace BAMTriviaProject2MVC.Controllers
 
             var jsonString = await response.Content.ReadAsStringAsync();
 
-            var quizzes = JsonConvert.DeserializeObject<ApiQuizzes>(jsonString);
+            IEnumerable<ApiQuizzes> quizzes = JsonConvert.DeserializeObject<IEnumerable<ApiQuizzes>>(jsonString);
 
-            return View();
-            //return View();
+            return View(quizzes);
         }
 
         // GET: Quizes/Details/5

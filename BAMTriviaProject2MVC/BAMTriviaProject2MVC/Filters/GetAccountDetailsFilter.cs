@@ -2,6 +2,7 @@
 using BAMTriviaProject2MVC.Controllers;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,12 @@ namespace BAMTriviaProject2MVC.Filters
     public class GetAccountDetailsFilter : IAsyncActionFilter
     {
         private readonly IConfiguration _configuration;
+        private readonly ILogger<UsersController> _logger;
 
-        public GetAccountDetailsFilter(IConfiguration configuration)
+        public GetAccountDetailsFilter(IConfiguration configuration, ILogger<UsersController> logger)
         {
             _configuration = configuration;
+            _logger = logger;
         }
 
         public async Task OnActionExecutionAsync(
@@ -30,7 +33,7 @@ namespace BAMTriviaProject2MVC.Filters
             if (context.Controller is AServiceController controller)
             {
                 HttpRequestMessage request = controller.CreateRequestToService(
-                    HttpMethod.Get, "api/Users/Details");
+                HttpMethod.Get, "api/Users/Details");
 
                 HttpResponseMessage response = await controller.HttpClient.SendAsync(request);
 
