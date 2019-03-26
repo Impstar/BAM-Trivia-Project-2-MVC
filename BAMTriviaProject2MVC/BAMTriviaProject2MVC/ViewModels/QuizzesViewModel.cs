@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BAMTriviaProject2MVC.ApiModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,6 +27,8 @@ namespace BAMTriviaProject2MVC.ViewModels
             {3, "Hard" }
         };
 
+        public List<ApiQuestions> questions { get; set; }
 
+        public List<ApiAnswers> answers { get; set; }
     }
 }
