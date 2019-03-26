@@ -7,7 +7,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - BAMTriviaProject2MVC</title>
+    <title>@ViewData["Title"] - BAM Trivia Project-2</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -26,7 +26,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark navbar-toggleable-sm border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BAMTriviaProject2MVC</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BAM Trivia Project-2</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -34,27 +34,39 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     @if (account != null)
                     {
-                    <form class="form-inline" asp-controller="Home" asp-action="Logout">
-                        <span class="navbar-text mr-sm-2 text-light">
-                            @account.Username
-                        </span>
-                        @if (account.AccountType)
-                        {
-                        <span class="navbar-text mr-sm-2" style="color:red;">
-                            Admin
-                        </span>
-                        }
-                        <button class="btn btn-outline-info text-light" type="submit">Logout</button>
-                    </form>
+                        <form class="form-inline" asp-controller="Home" asp-action="Account">
+                            <button class="btn btn-outline-info text-light" type="submit">Account</button>
+                        </form>
                     }
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Login">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
+                    @if (account != null)
+                    {
+                        <form class="form-inline" asp-controller="Home" asp-action="Logout">
+                            <span class="navbar-text mr-sm-2 text-light">
+                                @account.Username
+                            </span>
+                            @if (account.AccountType)
+                            {
+                                <span class="navbar-text mr-sm-2" style="color:red;">
+                                    Admin
+                                </span>
+                            }
+                            <button class="btn btn-outline-info text-light" type="submit">Logout</button>
+                        </form>
+                    }
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Login">Home</a>
+                            </li>
+                            @if (account != null)
+                            {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Quizzes" asp-action="Index">Quizzes</a>
+                            </li>   
+                            }
+                            @*<li class="nav-item">
+            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </li>*@
+                        </ul>
                 </div>
             </div>
         </nav>
@@ -68,7 +80,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2019 - BAMTriviaProject2MVC - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2019 - BAMTriviaProject2MVC
         </div>
     </footer>
 
