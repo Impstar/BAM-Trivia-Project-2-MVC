@@ -62,14 +62,24 @@ namespace BAMTriviaProject2MVC.Controllers
         {
             try
             {
-                var request = CreateRequestToService(HttpMethod.Post, $"https://localhost:44338/api/Quizzes", model);
+                var request = CreateRequestToService(HttpMethod.Post, $"/api/Quizzes", model);
                 var response = await HttpClient.SendAsync(request);
 
                 var jsonString = await response.Content.ReadAsStringAsync();
 
                 var questions = JsonConvert.DeserializeObject<List<ApiQuestions>>(jsonString);
 
-                return RedirectToAction("TakeQuiz", questions);
+                var request2 = CreateRequestToService(HttpMethod.Post, $"/api/Quizzes/Answers", questions);
+                var response2 = await HttpClient.SendAsync(request2);
+
+                var jsonString2 = await response2.Content.ReadAsStringAsync();
+
+                var answers = JsonConvert.DeserializeObject<List<ApiAnswers>>(jsonString2);
+
+                model.questions = questions;
+                model.answers = answers;
+
+                return RedirectToAction("TakeQuiz", model);
             }
             catch
             {
@@ -78,14 +88,14 @@ namespace BAMTriviaProject2MVC.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> TakeQuiz(List<ApiQuestions> model)
+        public async Task<ActionResult> TakeQuiz(List<ApiQuestions> questions)
         {
-            var request = CreateRequestToService(HttpMethod.Post, $"/api/Quizzes/Create", model);
+            var request = CreateRequestToService(HttpMethod.Post, $"/api/Quizzes/Create", questions);
             var response = await HttpClient.SendAsync(request);
 
 
 
-            return View("TakeQuiz", model);
+            return View("TakeQuiz", questions);
         }
 
         //[HttpPost]
