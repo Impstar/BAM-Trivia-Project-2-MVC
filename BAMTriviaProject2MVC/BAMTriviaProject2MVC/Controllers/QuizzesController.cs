@@ -37,7 +37,7 @@ namespace BAMTriviaProject2MVC.Controllers
 
             var quizzes = JsonConvert.DeserializeObject<ApiQuizzes>(jsonString);
 
-            return View(quizzes);
+            return View();
             //return View();
         }
 
@@ -62,12 +62,14 @@ namespace BAMTriviaProject2MVC.Controllers
         {
             try
             {
-                var request = CreateRequestToService(HttpMethod.Post, $"/api/Quizzes/Create", model);
+                var request = CreateRequestToService(HttpMethod.Post, $"https://localhost:44338/api/Quizzes", model);
                 var response = await HttpClient.SendAsync(request);
 
+                var jsonString = await response.Content.ReadAsStringAsync();
 
+                var questions = JsonConvert.DeserializeObject<List<ApiQuestions>>(jsonString);
 
-                return RedirectToAction("TakeQuiz", model);
+                return RedirectToAction("TakeQuiz", questions);
             }
             catch
             {
@@ -76,7 +78,7 @@ namespace BAMTriviaProject2MVC.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> TakeQuiz(QuizzesViewModel model)
+        public async Task<ActionResult> TakeQuiz(List<ApiQuestions> model)
         {
             var request = CreateRequestToService(HttpMethod.Post, $"/api/Quizzes/Create", model);
             var response = await HttpClient.SendAsync(request);
