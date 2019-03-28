@@ -71,8 +71,8 @@ steps:
 - task: AzureRmWebAppDeployment@4
   displayName: Azure App Service deploy
   inputs:
-    azureSubscription: mpkagel@gmail.com
-    WebAppName: BAM1902trivia
+    azureSubscription: 'Free Trial (74f13f66-859f-4fdc-8afa-2eabf78271b5)'
+    WebAppName: BAM1902triviaMVC
     packageForLinux: $(Build.ArtifactStagingDirectory)/publish
   condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
 
