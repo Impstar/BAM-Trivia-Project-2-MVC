@@ -62,6 +62,27 @@ namespace BAMTriviaProject2MVC.Controllers
             return View(quizzes);
         }
 
+        public async Task<ActionResult> GetLastQuiz()
+        {
+            var request = CreateRequestToService(HttpMethod.Get, $"/api/Quizzes/Latest");
+            var response = await HttpClient.SendAsync(request);
+
+            //if (!response.IsSuccessStatusCode)
+            //{
+            //    if (response.StatusCode == HttpStatusCode.Unauthorized)
+            //    {
+            //        return RedirectToAction("Login", "Account");
+            //    }
+            //    return View("Error");
+            //}
+
+            var jsonString = await response.Content.ReadAsStringAsync();
+
+            ApiUserQuiz quiz = JsonConvert.DeserializeObject<ApiUserQuiz>(jsonString);
+
+            return View(quiz);
+        }
+
         // GET: Quizes/Details/5
         public ActionResult Details(int id)
         {
@@ -81,8 +102,8 @@ namespace BAMTriviaProject2MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(QuizzesViewModel model)
         {
-            try
-            {
+            //try
+            //{
                 var request = CreateRequestToService(HttpMethod.Post, $"/api/Quizzes", model);
                 var response = await HttpClient.SendAsync(request);
 
@@ -101,11 +122,11 @@ namespace BAMTriviaProject2MVC.Controllers
                 model.answers = answers;
 
                 return RedirectToAction("TakeQuiz", model);
-            }
-            catch
-            {
-                return View();
-            }
+            //}
+            //catch
+            //{
+            //    return View();
+            //}
         }
 
         [HttpGet]
