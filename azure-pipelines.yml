@@ -28,6 +28,7 @@ steps:
     extraProperties: |
       sonar.cs.opencover.reportsPaths="$(Build.ArtifactStagingDirectory)/coverage/*"
       sonar.cs.vstest.reportsPaths="$(Build.ArtifactStagingDirectory)/test/*"
+      sonar.exclusions=**/wwwroot/lib/**/*
   displayName: Prepare analysis on SonarCloud
 
 - script: dotnet build
