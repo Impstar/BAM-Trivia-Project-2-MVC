@@ -16,11 +16,11 @@ namespace BAMTriviaProject2MVC.Controllers
     public class HomeController : AServiceController
     {
         public HomeController(HttpClient httpClient, IConfiguration configuration,
-            ILogger<UsersController> logger)
+            ILogger<HomeController> logger)
             : base(httpClient, configuration)
         { _logger = logger; }
 
-        private readonly ILogger<UsersController> _logger;
+        private readonly ILogger<HomeController> _logger;
 
         public ActionResult Login()
         {
