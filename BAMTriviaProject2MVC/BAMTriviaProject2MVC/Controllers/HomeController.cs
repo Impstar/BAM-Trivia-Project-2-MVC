@@ -10,17 +10,19 @@ using Microsoft.Extensions.Configuration;
 using System.Net;
 using BAMTriviaProject2MVC.AuthModels;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using BAMTriviaProject2MVC.ApiModels;
 
 namespace BAMTriviaProject2MVC.Controllers
 {
     public class HomeController : AServiceController
     {
         public HomeController(HttpClient httpClient, IConfiguration configuration,
-            ILogger<UsersController> logger)
+            ILogger<HomeController> logger)
             : base(httpClient, configuration)
         { _logger = logger; }
 
-        private readonly ILogger<UsersController> _logger;
+        private readonly ILogger<HomeController> _logger;
 
         public ActionResult Login()
         {
@@ -76,7 +78,28 @@ namespace BAMTriviaProject2MVC.Controllers
             }
 
             // login success
-            return RedirectToAction("Index", "Quizzes");
+            return RedirectToAction("Account", "Home");
+        }
+
+        public async Task<ActionResult> Account()
+        {
+            var request = CreateRequestToService(HttpMethod.Get, $"/api/Users/Account");
+            var response = await HttpClient.SendAsync(request);
+
+            //if (!response.IsSuccessStatusCode)
+            //{
+            //    if (response.StatusCode == HttpStatusCode.Unauthorized)
+            //    {
+            //        return RedirectToAction("Login", "Account");
+            //    }
+            //    return View("Error");
+            //}
+
+            var jsonString = await response.Content.ReadAsStringAsync();
+
+            ApiUsersModel quizzes = JsonConvert.DeserializeObject<ApiUsersModel>(jsonString);
+
+            return View(quizzes);
         }
 
         // POST: /Account/Logout
@@ -155,7 +178,7 @@ namespace BAMTriviaProject2MVC.Controllers
             }
 
             // login success
-            return RedirectToAction("Index", "Quizzes");
+            return RedirectToAction("Login", "Home");
         }
 
         private bool PassCookiesToClient(HttpResponseMessage apiResponse)

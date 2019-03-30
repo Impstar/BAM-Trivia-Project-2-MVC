@@ -21,12 +21,13 @@
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/Styles/main.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Germania+One" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-dark bg-dark navbar-toggleable-sm border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">BAM Trivia Project-2</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index" style="font-size: 1.6em;">BAM Trivia Project 2 MVC</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -35,34 +36,31 @@
                     @if (account != null)
                     {
                         <form class="form-inline" asp-controller="Home" asp-action="Account">
-                            <button class="btn btn-outline-info text-light" type="submit">Account</button>
+                            <button class="btn btn-outline-info text-light" type="submit" style="font-size: 1.4em;">Account</button>
                         </form>
                     }
                     @if (account != null)
                     {
                         <form class="form-inline" asp-controller="Home" asp-action="Logout">
-                            <span class="navbar-text mr-sm-2 text-light">
+                            <span class="navbar-text mr-sm-2 text-light" style="font-size: 1.4em;">
                                 @account.Username
                             </span>
                             @if (account.AccountType)
                             {
-                                <span class="navbar-text mr-sm-2" style="color:red;">
+                                <span class="navbar-text mr-sm-2" style="color:red; font-size: 1.4em;">
                                     Admin
                                 </span>
                             }
-                            <button class="btn btn-outline-info text-light" type="submit">Logout</button>
+                            <button class="btn btn-outline-info text-light" type="submit" style="font-size: 1.4em;">Logout</button>
                         </form>
                     }
                         <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Login">Home</a>
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Login" style="font-size: 1.4em;">Home</a>
                             </li>
-                            @if (account != null)
-                            {
                             <li class="nav-item">
-                                <a class="nav-link text-light" asp-area="" asp-controller="Quizzes" asp-action="Index">Quizzes</a>
+                                <a class="nav-link text-light" href="http://localhost:4200" style="font-size: 1.4em;">Quizzes (Angular)</a>
                             </li>   
-                            }
                             @*<li class="nav-item">
             <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </li>*@
