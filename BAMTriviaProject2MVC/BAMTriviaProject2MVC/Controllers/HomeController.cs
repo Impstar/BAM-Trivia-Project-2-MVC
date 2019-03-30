@@ -78,7 +78,7 @@ namespace BAMTriviaProject2MVC.Controllers
             }
 
             // login success
-            return RedirectToAction("Index", "Quizzes");
+            return RedirectToAction("Account", "Home");
         }
 
         public async Task<ActionResult> Account()
@@ -178,7 +178,7 @@ namespace BAMTriviaProject2MVC.Controllers
             }
 
             // login success
-            return RedirectToAction("Index", "Quizzes");
+            return RedirectToAction("Login", "Home");
         }
 
         private bool PassCookiesToClient(HttpResponseMessage apiResponse)
